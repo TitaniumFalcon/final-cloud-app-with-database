@@ -124,16 +124,17 @@ class Question(models.Model):
     # Choice content
     # Indicate if this choice of the question is a correct one or not
     # Other fields and methods you would like to design
-# class Choice(models.Model):
-# DONE: # RIGHT = '3'
-        # WRONG = '-2'
-        # WRONG = '20'
-        # ANSWER_MODES = [
-                            # (RIGHT, '3'),
-                            # (WRONG, '-5'),
-                            # (WRONG, '20')]
-# DONE: question = models.ManyToMany(Question)
-# DONE: mode = models.CharField(max_length=5, choices=ANSWER_MODES, default=RIGHT)
+
+class Choice(models.Model):
+    RIGHT = '3'
+    WRONG = '-2'
+    WRONG = '20'
+    ANSWER_MODES = [(RIGHT, '3'),
+                    (WRONG, '-5'),
+                    (WRONG, '20')
+                   ]
+    question = models.ManyToMany(Question)
+    mode = models.CharField(max_length=5, choices=ANSWER_MODES, default=RIGHT)
 
 
 # <HINT> The submission model
