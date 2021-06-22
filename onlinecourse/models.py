@@ -104,6 +104,8 @@ class Enrollment(models.Model):
     
 class Question(models.Model):
     lesson = models.ManyToManyField(Lesson)
+    order = models.IntegerField(default=0)
+    title = models.CharField(max_length=200) 
     question = models.CharField(max_length=200)
     grade = models.IntegerField(default=10)
 
@@ -134,7 +136,8 @@ class Choice(models.Model):
                     (WRONG, '20')
                    ]
     question = models.ManyToMany(Question)
-    mode = models.CharField(max_length=5, choices=ANSWER_MODES, default=RIGHT)
+    order = models.IntegerField(defaut=0)
+    mode = models.CharField(max_length=5, choices=ANSWER_MODES)
 
 
 # <HINT> The submission model
