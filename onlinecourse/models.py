@@ -97,7 +97,7 @@ class Enrollment(models.Model):
 
     
 class Question(models.Model):
-    lesson = models.ManyToManyField(Lesson, on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     order = models.IntegerField(default=0)
     title = models.CharField(max_length=200) 
     question = models.CharField(max_length=200)
@@ -125,8 +125,8 @@ class Choice(models.Model):
                     (WRONG, '-5'),
                     (WRONG, '20')
                    ]
-    question = models.ManyToMany(Question)
-    order = models.IntegerField(defaut=0)
+    question = models.ForeignKey(Question)
+    order = models.IntegerField(default=0)
     mode = models.CharField(max_length=5, choices=ANSWER_MODES)
 
     def __str__(self):
