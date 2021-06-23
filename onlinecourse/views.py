@@ -134,7 +134,7 @@ def show_exam_result(request, course_id, submission_id):
     submission = Submission.objects.get(pk=submission_id)
     submission_choices_ids = submission.chocies.values_list('pk', flat=True)
     grade = 0
-    not_selected = []
+    not_choice = []
     
     for question in course.question_set.all():
         question.not_selected(submission_choices_ids, not_selected)
@@ -142,7 +142,7 @@ def show_exam_result(request, course_id, submission_id):
             grade += question.grade
     context['course'] = course
     context['grade'] = grade
-    context['not_selected'] = not_selected
+    context['not_choice'] = not_choice
     context['selected'] = submission.chocies.all()
     
     return render(request , 'onlinecourse/exam_result_bootstrap.html' , context)
