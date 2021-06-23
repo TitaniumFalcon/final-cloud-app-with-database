@@ -95,15 +95,9 @@ class Enrollment(models.Model):
     rating = models.FloatField(default=5.0)
 
 
-# <HINT> Create a Question Model with:
-    # Reason: Used to persist question content for a course
-    # Has a One-To-Many (or Many-To-Many if you want to reuse questions) relationship with course
-    # Has a grade point for each question
-    # Has question content
-    # Other fields and methods you would like to design
     
 class Question(models.Model):
-    lesson = models.ManyToManyField(Lesson)
+    lesson = models.ManyToManyField(Lesson, on_delete=models.CASCADE)
     order = models.IntegerField(default=0)
     title = models.CharField(max_length=200) 
     question = models.CharField(max_length=200)
@@ -118,14 +112,10 @@ class Question(models.Model):
             return True
         else:
             return False
+   
+    def __str__(self):
+        return self.question
 
-
-#  <HINT> Create a Choice Model with:
-    # Used to persist choice content for a question
-    # One-To-Many (or Many-To-Many if you want to reuse choices) relationship with Question
-    # Choice content
-    # Indicate if this choice of the question is a correct one or not
-    # Other fields and methods you would like to design
 
 class Choice(models.Model):
     RIGHT = '3'
@@ -139,12 +129,14 @@ class Choice(models.Model):
     order = models.IntegerField(defaut=0)
     mode = models.CharField(max_length=5, choices=ANSWER_MODES)
 
+    def __str__(self):
+        return self.mode
 
-# <HINT> The submission model
-# One submission could have multiple choices
-# One enrollment could have multiple submission
-# One choice could belong to multiple submissions
+
 
 class Submission(models.Model):
     enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE)
     chocies = models.ManyToManyField(Choice)
+    
+    def __str__(self):
+        return self.choices
